@@ -22,7 +22,17 @@ const menuTemplate =[
   {
     label: 'File',
     submenu: [
-      { label: 'New Todo' }
+      { label: 'New Todo' },
+      {
+        label: 'Quit',
+        click() {
+          app.quit();
+        }
+      }
     ]
   }
 ]
+
+if(process.platform === 'darwin') {
+  menuTemplate.unshift({});
+}
