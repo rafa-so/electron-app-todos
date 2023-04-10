@@ -3,6 +3,7 @@ const electron = require('electron');
 const { app, BrowserWindow, Menu } = electron;
 
 let mainWindow;
+let addWindow;
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
@@ -18,13 +19,30 @@ app.on('ready', () => {
   Menu.setApplicationMenu(mainMenu);
 });
 
+function createAddWindow() {
+  addWindow = new BrowserWindow({
+    width: 200,
+    height: 200,
+    title: 'Add New Todo',
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+}
+
 const menuTemplate =[
   {
     label: 'File',
     submenu: [
-      { label: 'New Todo' },
+      {
+        label: 'New Todo',
+        accelerator: 'Ctrl+N',
+        click() { createAddWindow(); }
+      },
       {
         label: 'Quit',
+        accelerator: process.platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
         click() {
           app.quit();
         }
