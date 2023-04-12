@@ -70,6 +70,9 @@ if(process.env.NODE_ENV !== 'production') {
     label: 'View',
     submenu: [
       {
+        role: 'reload'
+      },
+      {
         label: 'Toggle Developer Tools',
         accelerator: process.platform === 'darwin' ? 'Command+Alt+I' : 'Ctrl+Alt+I',
         click(item, focusedWindow) {
