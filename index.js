@@ -36,6 +36,10 @@ function createAddWindow() {
   addWindow.on('closed', () => addWindow = null);
 }
 
+function clearTodos() {
+  mainWindow.webContents.send('todo:clean', '');
+}
+
 ipcMain.on('todo:add', (event, todo) => {
   mainWindow.webContents.send('todo:add', todo);
   addWindow.close();
@@ -49,6 +53,11 @@ const menuTemplate =[
         label: 'New Todo',
         accelerator: 'Ctrl+N',
         click() { createAddWindow(); }
+      },
+      {
+        label: 'Clear Todos',
+        accelerator: process.platform === 'darwin' ? 'Command+D' : 'Ctrl+D',
+        click() { clearTodos(); }
       },
       {
         label: 'Quit',
