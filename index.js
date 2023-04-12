@@ -33,11 +33,12 @@ function createAddWindow() {
   });
 
   addWindow.loadURL(`file://${__dirname}/add.html`);
+  addWindow.on('closed', () => addWindow = null);
 }
 
 ipcMain.on('todo:add', (event, todo) => {
-  console.log('todo: ', todo);
   mainWindow.webContents.send('todo:add', todo);
+  addWindow.close();
 });
 
 const menuTemplate =[
